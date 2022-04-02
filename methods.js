@@ -160,33 +160,50 @@ function createModal(obj){
 
 }
 
-function filtrare(arr, text){
+function filtrare(arr ,text){
 
-    let objects=[];
-
-    objects = arr.filter(e=>{
-
-        e.includes(text);
-
-    });
+    let objects= arr.filter(
+        e=>e.title.includes(text));
 
     return objects;
+
 }
 
 mainArea.addEventListener("click", (e)=>{
 
     let obj = e.target;
 
+    let keyWord = mainArea.children[1].children[1].children[0].innerText;
+
+ 
+
     if(obj.classList.contains("s_img")){
 
-        modalArea.style.display = "block"; 
+        createModal(filtrare(data,keyWord)[0]).style.display = "block"; 
+
+    }
+
+});
+
+
+
+modalArea.addEventListener("click", (e)=>{
+
+    let obj=e.target;
+
+    if(obj.classList.contains("inchide")){
+
+
+        modalArea.style.display = "none"; 
 
     }
 
 
 
-
 })
+
+
+
 
 
 
