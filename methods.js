@@ -4,6 +4,8 @@ let btnArea = document.querySelector('.butoane');
 
 let modalArea = document.querySelector('.modal');
 
+let headerul = document.querySelector('.head');
+
 
 function createCard(obj){
 
@@ -175,15 +177,61 @@ mainArea.addEventListener("click", (e)=>{
 
     let keyWord = mainArea.children[1].children[1].children[0].innerText;
 
- 
-
     if(obj.classList.contains("s_img")){
 
-        createModal(filtrare(data,keyWord)[0]).style.display = "block"; 
+        let key2 = obj.nextElementSibling.children[0].innerText;
+
+        createModal(filtrare(data,key2)[0]).style.display = "block"; 
+
+        mainArea.style.display = "none"; 
+
+        headerul.style.display = "none"; 
 
     }
 
 });
+
+
+
+function getNext(arr,actualObj){
+
+    let nextObj;
+
+   for(let i=0; i<arr.length; i++){
+
+
+        if(arr[i]==actualObj){
+
+            nextObj=arr[i+1];
+
+        }
+
+   }
+
+   return nextObj;
+
+
+}
+
+
+function getPrevious(arr, actualObject){
+
+    let prevObject;
+
+    for(let i=0; i<arr.length; i++){
+
+        if(arr[i]==actualObject){
+
+            prevObject = arr[i-1];
+        }
+
+    }
+
+    return prevObject;
+
+}
+
+
 
 
 
@@ -193,14 +241,34 @@ modalArea.addEventListener("click", (e)=>{
 
     if(obj.classList.contains("inchide")){
 
-
         modalArea.style.display = "none"; 
+
+        mainArea.style.display = "block"; 
+
+        headerul.style.display = "block"; 
+
+    }else if(obj.classList.contains("dreapta")){
+
+        let keyRight = modalArea.children[1].children[0].innerText;
+
+        createModal(getNext(data,filtrare(data,keyRight)[0])).style.display = "block";
+
+        mainArea.style.display = "none"; 
+
+        headerul.style.display = "none"; 
+
+    }else if(obj.classList.contains("stanga")){
+
+        let keyLeft = modalArea.children[1].children[0].innerText;
+
+        createModal(getPrevious(data,filtrare(data,keyLeft)[0])).style.display = "block";
+
 
     }
 
-
-
 })
+
+
 
 
 
